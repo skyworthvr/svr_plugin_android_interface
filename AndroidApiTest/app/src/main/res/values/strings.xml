@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AndroidApiTest</string>
+    <string-array name="wifi_security_array">
+        <item>None</item>
+        <item>WEP</item>
+        <item>PSK</item>
+    </string-array>
+</resources>

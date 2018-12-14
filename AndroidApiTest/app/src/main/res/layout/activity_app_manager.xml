@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_get_app_infos"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Get App Infos"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_open_browser"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Open Browser"
+        app:layout_constraintLeft_toRightOf="@id/btn_get_app_infos"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_clear_memory"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Clear Memory"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_get_app_infos"
+        app:layout_constraintTop_toBottomOf="@+id/btn_get_app_infos" />
+
+    <Button
+        android:id="@+id/btn_device_info"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Device Info"
+        app:layout_constraintLeft_toRightOf="@+id/btn_clear_memory"
+        app:layout_constraintTop_toTopOf="@+id/btn_clear_memory" />
+
+    <ScrollView
+        android:id="@+id/sv_text"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toBottomOf="@+id/btn_clear_memory">
+
+        <TextView
+            android:id="@+id/text_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <GridView
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:columnWidth="90dp"
+        android:horizontalSpacing="5dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
