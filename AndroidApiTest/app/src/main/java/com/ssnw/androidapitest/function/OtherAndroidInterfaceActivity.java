@@ -30,7 +30,7 @@ public class OtherAndroidInterfaceActivity extends BaseActivity {
 
             @Override
             public void onDistanceFar(boolean far) {
-                updateNotify(mTextAppInfos, "距离在5cm外： " + far);
+                updateNotify(mTextAppInfos, "Distance is 5cm: " + far);
             }
         };
 
@@ -46,10 +46,10 @@ public class OtherAndroidInterfaceActivity extends BaseActivity {
         mMediaPlayer.setLooping(true);
         AndroidInterface.getInstance().getDeviceUtils().setMouseListener(
             isAttached -> {
-                updateNotify(mTextAppInfos, "鼠标连接状态 = " + isAttached);
-                //Toast.makeText(OtherAndroidInterfaceActivity.this, "鼠标已 " + isAttached , Toast.LENGTH_SHORT)
+                updateNotify(mTextAppInfos, "Mouse connection status = " + isAttached);
+                //Toast.makeText(OtherAndroidInterfaceActivity.this, "The mouse has " + isAttached , Toast.LENGTH_SHORT)
                 //    .show();
-                Log.d("jie", "鼠标已 " + isAttached);
+                Log.d("jie", "The mouse has " + isAttached);
             });
         AndroidInterface.getInstance().getVolumeUtils().setListener(
             () -> updateNotify(mTextAppInfos, "current volume " +
@@ -155,7 +155,7 @@ public class OtherAndroidInterfaceActivity extends BaseActivity {
         findViewById(R.id.btn_is_mouse_attached).setOnClickListener(
             v -> {
                 updateNotify(mTextAppInfos,
-                    "鼠标当前状态：" + AndroidInterface.getInstance().getDeviceUtils().isMouseAttached());
+                    "Current state of the mouse:" + AndroidInterface.getInstance().getDeviceUtils().isMouseAttached());
             }
         );
 

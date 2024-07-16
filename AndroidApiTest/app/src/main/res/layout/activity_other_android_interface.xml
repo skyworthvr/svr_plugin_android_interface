@@ -80,7 +80,7 @@
         android:id="@+id/btn_add_proximity_listener"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="添加距离传感器监听器"
+        android:text="Add a distance sensor listener"
         app:layout_constraintLeft_toRightOf="@+id/btn_eye_production"
         app:layout_constraintTop_toBottomOf="@+id/btn_brightness_up" />
 
@@ -88,7 +88,7 @@
         android:id="@+id/btn_get_display_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="获取屏幕尺寸"
+        android:text="Get the screen size"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_add_proximity_listener" />
 
@@ -96,7 +96,7 @@
         android:id="@+id/btn_is_mouse_attached"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="鼠标是否连接"
+        android:text="Is the mouse connected"
         app:layout_constraintLeft_toRightOf="@id/btn_get_display_size"
         app:layout_constraintTop_toBottomOf="@id/btn_add_proximity_listener" />
 

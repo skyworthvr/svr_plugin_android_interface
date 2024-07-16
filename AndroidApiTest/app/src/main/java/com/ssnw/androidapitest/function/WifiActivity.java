@@ -251,9 +251,9 @@ public class WifiActivity extends BaseActivity {
             holder.title.setText(info.getSSID());
             String subtitle = info.getRssi() + ":";
             if (info.getWifiStatus() == 1) {
-                subtitle += "已保存";
+                subtitle += "Saved";
             } else if (info.getWifiStatus() == 2) {
-                subtitle += "已连接";
+                subtitle += "connected";
             }
             holder.subtitle.setText(subtitle);
             return convertView;
