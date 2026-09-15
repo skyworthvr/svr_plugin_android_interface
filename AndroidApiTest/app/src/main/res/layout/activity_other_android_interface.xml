@@ -69,11 +69,19 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_brightness_up" />
 
     <Button
-        android:id="@+id/btn_eye_production"
+        android:id="@+id/btn_eye_production_on"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Eye production"
+        android:text="Eye production on"
         app:layout_constraintLeft_toRightOf="@+id/btn_storage_size"
+        app:layout_constraintTop_toBottomOf="@+id/btn_brightness_up" />
+
+    <Button
+        android:id="@+id/btn_eye_production_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eye production off"
+        app:layout_constraintLeft_toRightOf="@+id/btn_eye_production_on"
         app:layout_constraintTop_toBottomOf="@+id/btn_brightness_up" />
 
     <Button
@@ -81,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add a distance sensor listener"
-        app:layout_constraintLeft_toRightOf="@+id/btn_eye_production"
+        app:layout_constraintLeft_toRightOf="@+id/btn_eye_production_off"
         app:layout_constraintTop_toBottomOf="@+id/btn_brightness_up" />
 
     <Button

@@ -129,14 +129,13 @@ public class OtherAndroidInterfaceActivity extends BaseActivity {
             sb.append(AndroidInterface.getInstance().getStorageUtils().getUsedStorageSize());
             updateNotify(mTextAppInfos, sb.toString());
         });
-        findViewById(R.id.btn_eye_production).setOnClickListener(v -> {
-            boolean open =
-                AndroidInterface.getInstance().getDeviceUtils().isOpenEyeProtectionMode();
-            AndroidInterface.getInstance().getDeviceUtils().openEyeProtectionMode(!open);
-            StringBuilder sb = new StringBuilder();
-            sb.append("open eye production-");
-            sb.append(!open);
-            updateNotify(mTextAppInfos, sb.toString());
+        findViewById(R.id.btn_eye_production_on).setOnClickListener(v -> {
+            AndroidInterface.getInstance().getDeviceUtils().openEyeProtectionMode(true);
+            updateNotify(mTextAppInfos, "open eye production-true");
+        });
+        findViewById(R.id.btn_eye_production_off).setOnClickListener(v -> {
+            AndroidInterface.getInstance().getDeviceUtils().openEyeProtectionMode(false);
+            updateNotify(mTextAppInfos, "open eye production-false");
         });
         findViewById(R.id.btn_add_proximity_listener).setOnClickListener(
             v -> AndroidInterface.getInstance()
@@ -208,7 +207,15 @@ public class OtherAndroidInterfaceActivity extends BaseActivity {
 
             }
 
+            @Override public void onInstallError(int i, boolean b) {
+
+            }
+
             @Override public void onInstallFinish() {
+
+            }
+
+            @Override public void onInstallFinish(boolean b) {
 
             }
         });
