@@ -1194,7 +1194,7 @@ Calling a getter from a non-main thread before initialization completes blocks u
 <p>获取方式：<code>AndroidInterface.getInstance().getHandshankUtils()</code></p>
 <p>手柄（控制器）管理接口：支持左右手柄的配对/解绑、连接状态查询、电量获取、MAC 地址与版本号读取、进入 DFU 模式与固件升级，并提供配对、电量、按键/摇杆/触摸/霍尔、连接状态等事件监听。除特别说明外，<code>lr</code> 参数取值为 0 表示左手柄、1 表示右手柄。</p>
 <blockquote>
-<p>⚠️ <code>query303d</code> 与 <code>control303d</code> 仅支持 303D(E2) 设备；<code>getControllerVersion</code>、<code>getControllerMac</code> 的 <code>lr</code> 另支持 -1 表示主机。</p>
+<p>⚠️ <code>getExtra</code> 与 <code>setExtra</code> 仅支持 ES202(腕部相机) 设备；<code>getControllerVersion</code>、<code>getControllerMac</code> 的 <code>lr</code> 另支持 -1 表示主机。</p>
 </blockquote>
 <table>
 <thead>
@@ -1210,8 +1210,9 @@ Calling a getter from a non-main thread before initialization completes blocks u
 <tr><td><code>getBatteryLevelAsync</code></td><td><code>(HandshankBatteryListener listener)</code></td><td><code>void</code></td><td>异步获取手柄电量，会轮询最多 10 次，直到获取到的不为 0</td><td>请务必为每次调用创建新的 listener 对象</td></tr>
 <tr><td><code>getControllerMac</code></td><td><code>(int lr)</code></td><td><code>String</code></td><td>获取控制器 MAC 地址</td><td><code>lr</code> 支持 -1 表示主机；同步调用</td></tr>
 <tr><td><code>getControllerMacAsync</code></td><td><code>(int lr, HandshankMacListener listener)</code></td><td><code>void</code></td><td>异步获取 MAC 地址，会轮询最多 3 次，直到获取到的不为空</td><td><code>lr</code>：0 左手柄，1 右手柄，-1 主机</td></tr>
-<tr><td><code>query303d</code></td><td><code>(int code, int lr)</code></td><td><code>String</code></td><td>查询 303D(E2) 设备信息</td><td>⚠️ 仅支持 303D(E2) 设备；<code>code</code> 取 <code>C.QUERY_303D_MAC</code> 或 <code>C.QUERY_303D_STATUS</code>；返回 MAC 字符串或十进制状态值，失败/不支持返回 ""</td></tr>
-<tr><td><code>control303d</code></td><td><code>(int code)</code></td><td><code>void</code></td><td>控制 303D(E2) 设备</td><td>⚠️ 仅支持 303D(E2) 设备；<code>code</code> 掩码见 <code>C.CTRL_303D_*</code>，无返回</td></tr>
+<tr><td><code>getExtra</code></td><td><code>(int code, int lr)</code></td><td><code>String</code></td><td>查询 ES202(腕部相机) 扩展信息</td><td>⚠️ 仅支持 ES202(腕部相机) 设备；<code>code</code> 取 <code>C.EXTRA_GET_MAC</code> 或 <code>C.EXTRA_GET_STATUS</code>；返回 MAC 字符串或十进制状态值，失败/不支持返回 ""</td></tr>
+<tr><td><code>setExtra</code></td><td><code>(int code)</code></td><td><code>void</code></td><td>控制 ES202(腕部相机) 设备</td><td>⚠️ 仅支持 ES202(腕部相机) 设备；<code>code</code> 掩码见 <code>C.EXTRA_SET_*</code>，无返回</td></tr>
+<tr><td><code>setExtra</code></td><td><code>(int code, String value)</code></td><td><code>void</code></td><td>控制 ES202(腕部相机) 扩展节点（带 value 形式，与 <code>setExtra(int)</code> 共用命令码、服务端按参数个数区分）</td><td>⚠️ 仅支持 ES202(腕部相机) 设备；<code>code</code> 取 <code>C.EXTRA_SET_WIFI_NODE</code>（<code>value</code> "1" 开配网窗口 / "0" 关）或 <code>C.EXTRA_SET_TRANSFER_NODE</code>（<code>value</code> 为 4 字节空格分隔 hex，如 "DE 35 00 0B"）；掩码（<code>C.EXTRA_SET_*</code> 低字节）亦可传但应走 <code>setExtra(int)</code>；<code>value</code> 传 null 退化为单参数旧形式（线上传输与旧版逐字节一致）</td></tr>
 <tr><td><code>setBatteryListener</code></td><td><code>(HandshankBatteryListener listener)</code></td><td><code>void</code></td><td>监听手柄电量变化</td><td></td></tr>
 <tr><td><code>initBatteryListenerNative</code></td><td><code>(long handle)</code></td><td><code>void</code></td><td>辅助 Native 设置 HandshankBatteryListener</td><td>供 JNI 使用；内部同时调用 <code>getBatteryLevelAsync</code> 与 <code>setBatteryListener</code></td></tr>
 <tr><td><code>enterDFUMode</code></td><td><code>(int lr)</code></td><td><code>void</code></td><td>进入 DFU 模式</td><td></td></tr>
@@ -2742,7 +2743,7 @@ Calling a getter from a non-main thread before initialization completes blocks u
 <p>Obtain via: <code>AndroidInterface.getInstance().getHandshankUtils()</code></p>
 <p>Controller (handshank) management APIs: bond and unbond the left/right controllers, query the connection state, read battery level, MAC address and version, enter DFU mode and upgrade firmware, and listen for bond, battery, button/thumbstick/touch/hall and connection events. Unless stated otherwise, <code>lr</code> is 0 for the left controller and 1 for the right controller.</p>
 <blockquote>
-<p>⚠️ <code>query303d</code> and <code>control303d</code> are only supported on 303D (E2) devices; for <code>getControllerVersion</code> and <code>getControllerMac</code>, <code>lr</code> also accepts -1 for the head unit.</p>
+<p>⚠️ <code>getExtra</code> and <code>setExtra</code> are only supported on ES202 (wrist camera) devices; for <code>getControllerVersion</code> and <code>getControllerMac</code>, <code>lr</code> also accepts -1 for the head unit.</p>
 </blockquote>
 <table>
 <thead>
@@ -2758,8 +2759,9 @@ Calling a getter from a non-main thread before initialization completes blocks u
 <tr><td><code>getBatteryLevelAsync</code></td><td><code>(HandshankBatteryListener listener)</code></td><td><code>void</code></td><td>Get the controller battery level asynchronously; polls up to 10 times until a non-zero value is received</td><td>A new listener object must be created for every call</td></tr>
 <tr><td><code>getControllerMac</code></td><td><code>(int lr)</code></td><td><code>String</code></td><td>Get the controller MAC address</td><td><code>lr</code> accepts -1 for the head unit; synchronous call</td></tr>
 <tr><td><code>getControllerMacAsync</code></td><td><code>(int lr, HandshankMacListener listener)</code></td><td><code>void</code></td><td>Get the MAC address asynchronously; polls up to 3 times until a non-empty value is received</td><td><code>lr</code>: 0 left controller, 1 right controller, -1 head unit</td></tr>
-<tr><td><code>query303d</code></td><td><code>(int code, int lr)</code></td><td><code>String</code></td><td>Query information of a 303D (E2) device</td><td>⚠️ Only supported on 303D (E2) devices; <code>code</code> is <code>C.QUERY_303D_MAC</code> or <code>C.QUERY_303D_STATUS</code>; returns a MAC string or a decimal status value, or "" on failure / when unsupported</td></tr>
-<tr><td><code>control303d</code></td><td><code>(int code)</code></td><td><code>void</code></td><td>Control a 303D (E2) device</td><td>⚠️ Only supported on 303D (E2) devices; <code>code</code> bitmask is defined in <code>C.CTRL_303D_*</code>; no return value</td></tr>
+<tr><td><code>getExtra</code></td><td><code>(int code, int lr)</code></td><td><code>String</code></td><td>Query extended information of an ES202 wrist camera</td><td>⚠️ Only supported on ES202 (wrist camera) devices; <code>code</code> is <code>C.EXTRA_GET_MAC</code> or <code>C.EXTRA_GET_STATUS</code>; returns a MAC string or a decimal status value, or "" on failure / when unsupported</td></tr>
+<tr><td><code>setExtra</code></td><td><code>(int code)</code></td><td><code>void</code></td><td>Control an ES202 wrist camera</td><td>⚠️ Only supported on ES202 (wrist camera) devices; <code>code</code> bitmask is defined in <code>C.EXTRA_SET_*</code>; no return value</td></tr>
+<tr><td><code>setExtra</code></td><td><code>(int code, String value)</code></td><td><code>void</code></td><td>Control an extended node of an ES202 wrist camera (form with value; shares the command code with <code>setExtra(int)</code>, the server distinguishes them by parameter count)</td><td>⚠️ Only supported on ES202 (wrist camera) devices; <code>code</code> is <code>C.EXTRA_SET_WIFI_NODE</code> (<code>value</code> "1" opens / "0" closes the pairing window) or <code>C.EXTRA_SET_TRANSFER_NODE</code> (<code>value</code> is 4 space-separated hex bytes, e.g. "DE 35 00 0B"); bitmasks (low byte of <code>C.EXTRA_SET_*</code>) are also accepted but <code>setExtra(int)</code> should be used; passing null for <code>value</code> degrades to the legacy single-parameter form (wire format is byte-for-byte identical to the old version)</td></tr>
 <tr><td><code>setBatteryListener</code></td><td><code>(HandshankBatteryListener listener)</code></td><td><code>void</code></td><td>Listen for controller battery changes</td><td></td></tr>
 <tr><td><code>initBatteryListenerNative</code></td><td><code>(long handle)</code></td><td><code>void</code></td><td>Helper for native code to register a HandshankBatteryListener</td><td>Intended for JNI usage; internally calls both <code>getBatteryLevelAsync</code> and <code>setBatteryListener</code></td></tr>
 <tr><td><code>enterDFUMode</code></td><td><code>(int lr)</code></td><td><code>void</code></td><td>Enter DFU mode</td><td></td></tr>

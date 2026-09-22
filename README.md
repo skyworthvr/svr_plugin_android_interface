@@ -66,5 +66,5 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-具体信息请阅读开发者文档  
-Please read the developer documentation for details
+具体信息请阅读开发者文档：[Api_Docs.md](Api_Docs.md)  
+Please read the developer documentation: [Api_Docs.md](Api_Docs.md) for details
